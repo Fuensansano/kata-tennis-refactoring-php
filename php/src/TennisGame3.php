@@ -22,9 +22,9 @@ class TennisGame3 implements TennisGame
     {
         if ($this->scorePlayer1 < 4 && $this->scorePlayer2 < 4 && !($this->scorePlayer1 + $this->scorePlayer2 == 6)) {
             $set = $this->points[$this->scorePlayer1];
-            return ($this->scorePlayer1 == $this->scorePlayer2) ? "{$set}-All" : "{$set}-{$this->points[$this->scorePlayer2]}";
+            return ($this->isADraw()) ? "{$set}-All" : "{$set}-{$this->points[$this->scorePlayer2]}";
         } else {
-            if ($this->scorePlayer1 == $this->scorePlayer2) {
+            if ($this->isADraw()) {
                 return self::DEUCE;
             }
             $set = $this->scorePlayer1 > $this->scorePlayer2 ? $this->player1Name : $this->player2Name;
@@ -39,6 +39,14 @@ class TennisGame3 implements TennisGame
         } else {
             $this->scorePlayer2++;
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isADraw(): bool
+    {
+        return $this->scorePlayer1 == $this->scorePlayer2;
     }
 
 }
