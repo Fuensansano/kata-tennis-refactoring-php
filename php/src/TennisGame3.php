@@ -23,13 +23,11 @@ class TennisGame3 implements TennisGame
         if ($this->scorePlayer1 < 4 && $this->scorePlayer2 < 4 && !($this->scorePlayer1 + $this->scorePlayer2 == 6)) {
             $set = $this->points[$this->scorePlayer1];
             return ($this->isADraw()) ? "{$set}-All" : "{$set}-{$this->points[$this->scorePlayer2]}";
-        } else {
-            if ($this->isADraw()) {
-                return self::DEUCE;
-            }
-            $set = $this->extractAdvantagePlayerName();
-            return (($this->extractAdvantagePoint()) * ($this->extractAdvantagePoint()) == self::ADVANTAGEPOINT) ? "Advantage {$set}" : "Win for {$set}";
         }
+        if ($this->isADraw() ) {
+            return self::DEUCE;
+        }
+        return $this->retrieveWinPlayerName();
     }
 
     public function wonPoint($playerName)
@@ -57,6 +55,17 @@ class TennisGame3 implements TennisGame
             return  $this->player1Name;
         }
         return $this->player2Name;
+    }
+
+    public function retrieveWinPlayerName(): string
+    {
+        $set = $this->extractAdvantagePlayerName();
+        return $this->isOneAdvantagePoint() ? "Advantage {$set}" : "Win for {$set}";
+    }
+
+    public function isOneAdvantagePoint(): bool
+    {
+        return (($this->extractAdvantagePoint()) * ($this->extractAdvantagePoint()) == self::ADVANTAGEPOINT);
     }
 
 }
