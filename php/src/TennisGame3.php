@@ -41,26 +41,17 @@ class TennisGame3 implements TennisGame
         }
     }
 
-    /**
-     * @return bool
-     */
-    public function isADraw(): bool
+    private function isADraw(): bool
     {
         return $this->scorePlayer1 == $this->scorePlayer2;
     }
 
-    /**
-     * @return int
-     */
-    public function extractAdvantagePoint(): int
+    private function extractAdvantagePoint(): int
     {
         return $this->scorePlayer1 - $this->scorePlayer2;
     }
 
-    /**
-     * @return string
-     */
-    public function extractAdvantagePlayerName(): string
+    private function extractAdvantagePlayerName(): string
     {
         if ($this->scorePlayer1 > $this->scorePlayer2) {
             return  $this->player1Name;
