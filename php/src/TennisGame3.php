@@ -27,7 +27,7 @@ class TennisGame3 implements TennisGame
             if ($this->isADraw()) {
                 return self::DEUCE;
             }
-            $set = $this->scorePlayer1 > $this->scorePlayer2 ? $this->player1Name : $this->player2Name;
+            $set = $this->extractAdvantagePlayerName();
             return (($this->extractAdvantagePoint()) * ($this->extractAdvantagePoint()) == self::ADVANTAGEPOINT) ? "Advantage {$set}" : "Win for {$set}";
         }
     }
@@ -55,6 +55,17 @@ class TennisGame3 implements TennisGame
     public function extractAdvantagePoint(): int
     {
         return $this->scorePlayer1 - $this->scorePlayer2;
+    }
+
+    /**
+     * @return string
+     */
+    public function extractAdvantagePlayerName(): string
+    {
+        if ($this->scorePlayer1 > $this->scorePlayer2) {
+            return  $this->player1Name;
+        }
+        return $this->player2Name;
     }
 
 }
