@@ -9,8 +9,8 @@ class TennisGame3 implements TennisGame
     private const DEUCE = "Deuce";
     private const POINTS = ["Love", "Fifteen", "Thirty", "Forty"];
     private const EARLY_SUM_POINTS = 6;
-    private int $scorePlayer1 = 0;
-    private int $scorePlayer2 = 0;
+    private int $player1Score = 0;
+    private int $player2Score = 0;
     private string $player1Name;
     private string $player2Name;
 
@@ -34,26 +34,26 @@ class TennisGame3 implements TennisGame
     public function wonPoint(string $playerName): void
     {
         if ($playerName === $this->player1Name) {
-            $this->scorePlayer1++;
+            $this->player1Score++;
         }
         if ($playerName === $this->player2Name) {
-            $this->scorePlayer2++;
+            $this->player2Score++;
         }
     }
 
     private function isADraw(): bool
     {
-        return $this->scorePlayer1 === $this->scorePlayer2;
+        return $this->player1Score === $this->player2Score;
     }
 
     private function extractAdvantagePoint(): int
     {
-        return $this->scorePlayer1 - $this->scorePlayer2;
+        return $this->player1Score - $this->player2Score;
     }
 
     private function extractAdvantagePlayerName(): string
     {
-        if ($this->scorePlayer1 > $this->scorePlayer2) {
+        if ($this->player1Score > $this->player2Score) {
             return  $this->player1Name;
         }
         return $this->player2Name;
@@ -76,19 +76,19 @@ class TennisGame3 implements TennisGame
 
     private function isEarlyGameStage(): bool
     {
-        return $this->scorePlayer1 < self::MAX_POINTS_BEFORE_ADVANTAGE
-            && $this->scorePlayer2 < self::MAX_POINTS_BEFORE_ADVANTAGE
-            && !($this->scorePlayer1 + $this->scorePlayer2 === self::EARLY_SUM_POINTS);
+        return $this->player1Score < self::MAX_POINTS_BEFORE_ADVANTAGE
+            && $this->player2Score < self::MAX_POINTS_BEFORE_ADVANTAGE
+            && !($this->player1Score + $this->player2Score === self::EARLY_SUM_POINTS);
     }
 
     private function extractGameScore(): string
     {
-        $set1 = self::POINTS[$this->scorePlayer1];
+        $set1 = self::POINTS[$this->player1Score];
         if (($this->isADraw())) {
             return "$set1-All";
         }
 
-        $set2 = self::POINTS[$this->scorePlayer2];
+        $set2 = self::POINTS[$this->player2Score];
         return "$set1-$set2";
     }
 }
