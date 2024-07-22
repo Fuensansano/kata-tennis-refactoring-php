@@ -62,7 +62,11 @@ class TennisGame3 implements TennisGame
     private function retrieveWinPlayerName(): string
     {
         $set = $this->extractAdvantagePlayerName();
-        return $this->isOneAdvantagePoint() ? "Advantage $set" : "Win for $set";
+        if ($this->isOneAdvantagePoint()) {
+            return "Advantage $set";
+        }
+
+        return "Win for $set";
     }
 
     private function isOneAdvantagePoint(): bool
@@ -80,7 +84,11 @@ class TennisGame3 implements TennisGame
     private function extractGameScore(): string
     {
         $set1 = self::POINTS[$this->scorePlayer1];
+        if (($this->isADraw())) {
+            return "$set1-All";
+        }
+
         $set2 = self::POINTS[$this->scorePlayer2];
-        return ($this->isADraw()) ? "$set1-All" : "$set1-$set2";
+        return "$set1-$set2";
     }
 }
